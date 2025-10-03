@@ -1,0 +1,301 @@
+@import 'global.css';
+
+[v-cloak] {
+  display: none;
+}
+
+body {
+  background-color: var(--pastel-pink);
+  color: var(--dark-grey);
+  font-family: var(--font-primary);
+  line-height: 1.7;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+/* --- Back Arrow --- */
+.back-arrow {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--cream);
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  transition: color 0.3s ease-out;
+}
+
+.back-arrow svg {
+  width: 60px;
+  height: 60px;
+  stroke: var(--cream);
+  transition: stroke 0.3s ease-out;
+}
+
+.banner {
+  background-color: var(--cream);
+  width: 100vw;
+  height: 25%;
+  padding: 2rem 2rem;
+  box-sizing: border-box;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner h1 {
+  margin: 0;
+  color: var(--dark-grey);
+  white-space: nowrap;
+  font-size: 25rem;
+}
+
+/* --- Scroll Down Arrow --- */
+.scroll-down-wrapper {
+  position: fixed;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.scroll-down-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+
+.scroll-down-arrow svg {
+  stroke: var(--cream);
+  width: 60px;
+  height: 60px;
+  transition: stroke 0.3s ease-out;
+}
+
+.scroll-down-arrow span {
+  font-size: 1.25rem;
+  color: var(--cream);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s ease-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* The Hover Effect */
+.scroll-down-arrow:hover svg {
+  stroke: var(--dark-grey);
+}
+
+.scroll-down-arrow:hover span {
+  color: var(--dark-grey);
+}
+
+.back-arrow:hover {
+  color: var(--dark-grey);
+  svg {
+    stroke: var(--dark-grey);
+  }
+}
+
+/* --- 1. Define the Keyframe Animations --- */
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-and-out {
+  /* Fades in as it enters the screen */
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  /* Stays fully visible while in the middle of the screen */
+  25%, 75% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Fades out as it leaves the screen */
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+
+/* --- 2. Animate the Background Title --- */
+.title-container {
+  position: fixed;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  animation: fade-out linear forwards;
+  animation-timeline: scroll(root);  
+  animation-range: 0 300px;
+}
+
+/* --- 3. Style and Animate the Scrolling Sections --- */
+.scroll-container {
+  position: relative;
+  z-index: 10;
+  margin-top: 100vh;
+}
+
+.scroll-section {
+  max-width: 75vw;
+  
+  margin: 10vh auto;
+
+  min-height: 90vh;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+
+  animation: fade-in-and-out linear forwards;
+  animation-timeline: view();
+  animation-range: entry 5% exit 70%;
+}
+
+.scroll-section .text-content {
+    background-color: var(--cream);
+    padding: 2rem; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    width: 50%;
+    position: relative;
+    font-size: 1.5rem;
+}
+
+.scroll-section .image-container {
+  background-color: var(--cream);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+
+  flex: 1;
+  width: 50%;
+}
+
+.scroll-section .image-container img {
+  display: block; 
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.scroll-section:nth-child(even) {
+  flex-direction: row-reverse; 
+}
+
+.scroll-section .text-content::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+}
+
+.scroll-section:nth-child(odd) .text-content::before {
+  left: -40px;
+  border-right-color: var(--cream);
+}
+
+.scroll-section:nth-child(even) .text-content::before {
+  right: -40px;
+  border-left-color: var(--cream);
+}
+
+svg.squiggle {
+  position: absolute;
+  top: 15%;
+  left: -120px;
+  height: 400vh;
+  width: 100%;
+  overflow-y: visible;
+
+  path {
+    stroke: var(--cream);
+    stroke-width: 1.5rem;
+    stroke-linecap: round;
+  }
+}
+
+.page-end-redirect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-home-btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  z-index: 10;
+  background-color: var(--cream);
+  color: var(--dark-grey);
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.back-home-btn:hover {
+  background-color: var(--dark-grey);
+  color: var(--cream);
+  transform: translateY(-2px);
+}

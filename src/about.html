@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style/about.css" />
+    <title>Emma Huber - About Me</title>
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <div
+      v-scope="{
+        scrollContent: [
+          {
+            title: 'Hi!',
+            description: 'My name is Emma Huber. I am a junior in college studying fashion management! I am originally from Huntersville, NC. Some of my personal passions are sustainability, fashion, sewing, and anything crafty! ' +
+            'I hope to pursue a career in product management and fashion development, and would love to work for a company that is passionate about sustainability and eco-conscious practices within the fashion industry.',
+            imageSrc: '../assets/emma_section_1.jpeg',
+            altText: 'Picture of Me'
+          },
+          {
+            title: 'Education',
+            description: 'I am currently pursuing a Bachelor of Science in Fashion and Textile Management with a concentration in Fashion Development and Product Management at North Carolina State University in Raleigh, NC. My studies have provided me with the opportunity to explore the full lifecycle of fashion—from fiber science to marketing to design development. Through my coursework, I\’ve gained hands-on experience in flat pattern design, textile analysis, strategic brand management, and the fundamentals of fiber science and textiles.' +
+            '<h4>Relevant Coursework:</h4> <ul><li>Fashion Product Design</li> <li>Computer-Aided Design for Apparel</li> <li>Principles of Retailing and Supply Chain Management in Textiles</li> <li>Fiber Science</li></ul>',
+            imageSrc: '../assets/emma_section_2.jpeg',
+            altText: 'NC State'
+          },
+          {
+            title: 'Work Experience',
+            description: `My work experiences, both on campus and through internships, have allowed me to combine leadership, creativity, and sustainability.
+              <ul>
+                <li>
+                  <b>Design Intern, Beldrie</b> – Assisted with product design using Adobe Illustrator, supported order fulfillment and brand loyalty efforts, and contributed to social media and marketing initiatives for a women's golf retailer.
+                </li>
+                <li>
+                  <b>Team Coordinator, Waste Reduction Team, Sustainability Stewards</b> – Coordinate on-campus events, lead task assignments, and develop initiatives to make NC State's campus more sustainable.
+                </li>
+                <li>
+                  <b>Resident Advisor, NC State University</b> – Support and mentor students while fostering an inclusive and engaging residential community.
+                </li>
+                <li>
+                  <b>Art2Wear, NC State University</b> – Contributed to event coordination, digital marketing, and content creation for the university’s annual wearable art show.
+                </li>
+              </ul>`,
+            imageSrc: '../assets/emma_section_3.jpeg',
+            altText: 'Work at Beldrie'
+          }
+        ]
+      }"
+      v-cloak
+    >
+        <main>
+          <section id="about" class="content-section">
+            <div class="title-container"> 
+              <a href="home.html" class="back-arrow" aria-label="Back to Home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                <span>Go Home</span>
+              </a>
+              <div class="banner"><h1>About Me</h1></div>
+              <div class="scroll-down-wrapper">
+                <a class="scroll-down-arrow" aria-label="Scroll down">
+                  <span>Scroll Down</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                       viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="scroll-container">
+              <section
+                class="scroll-section"
+                v-for="(section, index) in scrollContent"
+                :key="index"
+              >
+                <div class="image-container">
+                  <img :src="section.imageSrc" :alt="section.altText">
+                </div>
+                <div class="text-content">
+                  <h4 v-html="section.title"></h4>
+                  <p v-html="section.description"></p>
+                </div>
+              </section>
+            </div>
+            <div class="page-end-redirect">
+              <a href="home.html" class="back-home-btn">Go Back Home</a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>        
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -50 1000 2000" fill="none" class="squiggle" preserveAspectRation="none">
+      <path d="M -100 0
+               C 400 200, 600 200, 900 0
+               S 600 600, 300 800
+               S 600 1200, 900 1000
+               S 600 1600, 300 1800
+               S 600 2200, 900 2000"
+            stroke="black"
+            stroke-width="30"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            fill="none"/>
+    </svg> 
+
+    <script src="js/scroll.js"></script>
+    <script src="../petite-vue.iife.js" defer init></script>
+  </body>
+</html>
+

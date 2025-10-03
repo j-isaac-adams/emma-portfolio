@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style/work.css" />
+    <title>Emma Huber - Work</title>
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <div
+      v-scope="{
+        projects: [
+          {
+            title: 'E-commerce Platform',
+            description: 'A modern, responsive e-commerce site built with a focus on user experience and clean design.',
+            link: '#',
+            image: '../assets/project1.jpg'
+          },
+          {
+            title: 'Interactive Data Dashboard',
+            description: 'A data visualization tool that provides real-time analytics with an intuitive interface.',
+            link: '#',
+            image: '../assets/project2.jpg'
+          },
+          {
+            title: 'Brand Identity & Website',
+            description: 'Designed a complete brand identity and built a marketing website for a local startup.',
+            link: '#',
+            image: '../assets/project3.png'
+          },
+          {
+            title: 'Temp1',
+            description: 'Temp text.',
+            link: '#',
+            image: '../assets/project4.png'
+          },
+          {
+            title: 'Temp2',
+            description: 'Temp text.',
+            link: '#',
+            image: '../assets/project1.jpg'
+          },
+          {
+            title: 'Temp3',
+            description: 'Temp text.',
+            link: '#',
+            image: '../assets/project1.jpg'
+          }
+        ],
+      }"
+      v-cloak
+    >
+      <main>
+        <div class="projects-container">
+          <section class="content-section">
+            <article v-for="project in projects">
+              <figure>
+                <div class="card">
+                  <img :src="project.image" :alt="project.title">
+                  <div class="card__content">
+                    <p class="card__title">{{ project.title }}</p>
+                    <p class="card__description">{{ project.description }}</p>
+                  </div>
+                </div>
+              </figure>
+            </article>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="js/slides.js"></script>
+    <script src="../petite-vue.iife.js" defer init></script>
+  </body>
+</html>

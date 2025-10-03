@@ -1,0 +1,394 @@
+@import 'global.css';
+
+body {
+  background-color: var(--cream);
+  color: var(--dark-grey);
+  font-family: var(--font-primary);
+  line-height: 1.7;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+  overflow-y: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+/* --- Header --- */
+.header-container {
+  position: absolute;   /* Lifts the title out of the layout flow */
+  width: 100%;          /* Makes it span the full width of the container */
+  top: -10rem;            /* Adjust this value to move it down from the top */
+  left: 50%;            /* Moves the element's left edge to the center */
+  transform: translateX(-50%); /* Shifts it back by half its width to truly center it */
+  z-index: 5;           /* Ensures it sits on top of the banner */
+}
+
+.header-container svg {
+  width: 100vw; /* Or your desired width */
+  max-width: 90%; /* Ensures it doesn't overflow on small screens */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* --- Banner --- */
+.banner {
+  background-color: var(--pastel-pink);
+  width: 100vw;
+  min-height: 200px; /* Give it some height */
+  padding: 2rem 2rem; /* Add padding for the text */
+  margin-top: 12vw;
+  box-sizing: border-box; /* Ensures padding is included in the width */
+  
+  /* These help vertically center your text */
+  display: flex;
+  align-items: center;
+}
+
+/* --- Portrait Container --- */
+.portrait-container {
+  position: absolute; /* Lifts the element out of the normal flow */
+  top: -75px; /* Position from the top of the .container */
+  right: 6vw; /* Position from the right edge of the .container */
+  width: 600px; /* A large, fixed width for the image */
+  z-index: 10; /* Ensures the image is on top of the banner */
+}
+
+.portrait-container img {
+  width: 100%; /* Makes the image fill its container */
+  height: auto; /* Maintains the aspect ratio */
+}
+
+/* --- Hero Section --- */
+.hero {
+  position: relative;
+  flex-basis: 50%; /* Tells the text block to take up about 50% of the space */
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  margin: 0;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--grey);
+  font-family: var(--font-primary);
+  font-weight: 400;
+  margin-top: 0.5rem;
+  align-content: center;
+}
+
+/* --- Signature Drawing Animation --- */
+
+  .signature-container {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .signature-container svg {
+    height: 300px;
+    width: auto;
+    overflow: visible;
+    margin-left: -75px;
+  }
+
+   @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+      fill: var(--dark-grey);
+    }
+  }
+  
+  #signature-path-1,
+  #signature-path-2 {
+    fill: transparent;
+    stroke: var(--dark-grey);
+    stroke-width: 1;
+  }
+
+  #signature-path-2 {
+    stroke-dasharray: 3250; 
+    stroke-dashoffset: 3250;
+
+    animation: draw 2s ease-in-out forwards;
+  }
+  
+  #signature-path-1 {
+    stroke-dasharray: 2285;
+    stroke-dashoffset: 2285;
+
+    animation: draw 2s ease-in-out forwards;
+  }
+
+/* --- Buttons --- */
+.button {
+  position: relative;
+  z-index: 0;
+  width: 240px;
+  height: 56px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--dark-grey);
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  transform: scale(1.5);
+}
+.button__text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font: var(--font-primary);
+}
+.button::before,
+.button::after,
+.button__text::before,
+.button__text::after {
+  content: "";
+  position: absolute;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--grey);
+  transition: all 0.5s ease;
+}
+.button::before {
+  top: 0;
+  left: 54px;
+  width: calc(100% - 56px * 2 - 16px);
+}
+.button::after {
+  top: 0;
+  right: 54px;
+  width: 8px;
+}
+.button__text::before {
+  bottom: 0;
+  right: 54px;
+  width: calc(100% - 56px * 2 - 16px);
+}
+.button__text::after {
+  bottom: 0;
+  left: 54px;
+  width: 8px;
+}
+.button__line {
+  position: absolute;
+  top: 0;
+  width: 56px;
+  height: 100%;
+  overflow: hidden;
+}
+.button__line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 150%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 300px;
+  border: solid 3px var(--grey);
+}
+.button__line:nth-child(1),
+.button__line:nth-child(1)::before {
+  left: 0;
+}
+.button__line:nth-child(2),
+.button__line:nth-child(2)::before {
+  right: 0;
+}
+.button:hover {
+  letter-spacing: 6px;
+}
+.button:hover::before,
+.button:hover .button__text::before {
+  width: 8px;
+}
+.button:hover::after,
+.button:hover .button__text::after {
+  width: calc(100% - 56px * 2 - 16px);
+}
+.button__drow1,
+.button__drow2 {
+  position: absolute;
+  z-index: -1;
+  border-radius: 16px;
+  transform-origin: 16px 16px;
+}
+.button__drow1 {
+  top: -16px;
+  left: 40px;
+  width: 32px;
+  height: 0;
+  transform: rotate(30deg);
+}
+.button__drow2 {
+  top: 44px;
+  left: 77px;
+  width: 32px;
+  height: 0;
+  transform: rotate(-127deg);
+}
+.button__drow1::before,
+.button__drow1::after,
+.button__drow2::before,
+.button__drow2::after {
+  content: "";
+  position: absolute;
+}
+.button__drow1::before {
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 32px;
+  border-radius: 16px;
+  transform-origin: 16px 16px;
+  transform: rotate(-60deg);
+}
+.button__drow1::after {
+  top: -10px;
+  left: 45px;
+  width: 0;
+  height: 32px;
+  border-radius: 16px;
+  transform-origin: 16px 16px;
+  transform: rotate(69deg);
+}
+.button__drow2::before {
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 32px;
+  border-radius: 16px;
+  transform-origin: 16px 16px;
+  transform: rotate(-146deg);
+}
+.button__drow2::after {
+  bottom: 26px;
+  left: -40px;
+  width: 0;
+  height: 32px;
+  border-radius: 16px;
+  transform-origin: 16px 16px;
+  transform: rotate(-262deg);
+}
+.button__drow1,
+.button__drow1::before,
+.button__drow1::after,
+.button__drow2,
+.button__drow2::before,
+.button__drow2::after {
+  background: var(--pastel-pink);
+}
+.button:hover .button__drow1 {
+  animation: drow1 ease-in 0.06s;
+  animation-fill-mode: forwards;
+}
+.button:hover .button__drow1::before {
+  animation: drow2 linear 0.08s 0.06s;
+  animation-fill-mode: forwards;
+}
+.button:hover .button__drow1::after {
+  animation: drow3 linear 0.03s 0.14s;
+  animation-fill-mode: forwards;
+}
+.button:hover .button__drow2 {
+  animation: drow4 linear 0.06s 0.2s;
+  animation-fill-mode: forwards;
+}
+.button:hover .button__drow2::before {
+  animation: drow3 linear 0.03s 0.26s;
+  animation-fill-mode: forwards;
+}
+.button:hover .button__drow2::after {
+  animation: drow5 linear 0.06s 0.32s;
+  animation-fill-mode: forwards;
+}
+@keyframes drow1 {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100px;
+  }
+}
+@keyframes drow2 {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0;
+  }
+  11% {
+    opacity: 1;
+  }
+  100% {
+    width: 120px;
+  }
+}
+@keyframes drow3 {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 80px;
+  }
+}
+@keyframes drow4 {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 120px;
+  }
+}
+@keyframes drow5 {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 124px;
+  }
+}
+
+.button-wrapper {
+  position: absolute;
+
+  top: 45vh;
+
+  left: 30%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 20;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.button-container {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.button:not(:last-child) {
+  margin-bottom: 64px;
+}
+
+
+

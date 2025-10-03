@@ -1,0 +1,25 @@
+/* --- Global Styles & Resets --- */
+@import url('./fonts/great-vibes.css');
+
+/* --- CSS Variables for Colors & Fonts --- */
+:root {
+  --cream: #fdf8f5;
+  --white: #ffffff;
+  --pastel-pink: #f5d6d9;
+  --grey: #8d8d8d;
+  --dark-grey: #4a4a4a;
+  --font-primary: 'Helvetica-Neue';
+  --font-heading: 'Great Vibes', cursive;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--dark-grey);
+  }
+
+h4 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  color: var(--dark-grey);
+}

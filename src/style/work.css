@@ -1,0 +1,123 @@
+@import 'global.css';
+
+[v-cloak] {
+  display: none;
+}
+
+body {
+  background-color: var(--pastel-pink);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.card {
+  border-radius: 10%;
+  box-shadow: 0 0 0 5px var(--dark-grey);
+  overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  width: 100%;
+  max-height: 60vh;
+  max-width: 30vw;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This makes the image cover the area without distortion */
+  top: 0;
+  left: 0;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px var(--dark-grey);
+}
+
+.card:hover img {
+  transform: scale(0);
+}
+
+.card__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  box-sizing: border-box;
+  background-color: #f2f2f2;
+  transform: rotateX(-90deg);
+  transform-origin: bottom;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+}
+
+.card:hover .card__content {
+  transform: rotateX(0deg);
+}
+
+.card__title {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+  font-weight: 700;
+}
+
+.card__description {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #777;
+  line-height: 1.4;
+}
+
+.projects-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+}
+
+section {
+  display: grid;
+  grid-auto-flow: column;              /* Flow horizontally */
+  grid-auto-columns: minmax(250px, 1fr); /* Each visible card gets its own column */
+  justify-content: center;             /* Center the group */
+  gap: 1rem;
+
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 0.5rem;
+  margin-top: 5vh;
+
+  grid-auto-rows: minmax(auto, max-content);
+  align-items: center;
+  cursor: e-resize;
+}
+
+section article {
+  opacity: 1;
+  padding: 1rem;
+  visibility: visible;
+}
+
+.card.no-shadow,
+section article.hide .card,
+.card.no-shadow:hover,
+section article.hide .card:hover {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+section article.hide {
+  display: none !important;
+}
+
+figure {
+  width: 100%;
+  padding: 0 0.5rem;
+}
