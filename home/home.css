@@ -1,4 +1,4 @@
-@import 'global.css';
+@import '../global.css';
 
 body {
   background-color: var(--cream);
@@ -8,9 +8,9 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden; /* Prevents horizontal scrolling */
+  overflow-x: hidden;
   overflow-y: hidden;
-}
+} 
 
 .container {
   position: relative;
@@ -19,17 +19,17 @@ body {
 
 /* --- Header --- */
 .header-container {
-  position: absolute;   /* Lifts the title out of the layout flow */
-  width: 100%;          /* Makes it span the full width of the container */
-  top: -10rem;            /* Adjust this value to move it down from the top */
-  left: 50%;            /* Moves the element's left edge to the center */
-  transform: translateX(-50%); /* Shifts it back by half its width to truly center it */
-  z-index: 5;           /* Ensures it sits on top of the banner */
+  position: absolute;
+  width: 100%;
+  top: -10rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
 }
 
 .header-container svg {
-  width: 100vw; /* Or your desired width */
-  max-width: 90%; /* Ensures it doesn't overflow on small screens */
+  width: 100vw;
+  max-width: 90%;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -39,23 +39,22 @@ body {
 .banner {
   background-color: var(--pastel-pink);
   width: 100vw;
-  min-height: 200px; /* Give it some height */
-  padding: 2rem 2rem; /* Add padding for the text */
+  min-height: 15vh;
+  padding: 2rem 2rem;
   margin-top: 12vw;
-  box-sizing: border-box; /* Ensures padding is included in the width */
+  box-sizing: border-box;
   
-  /* These help vertically center your text */
   display: flex;
   align-items: center;
 }
 
 /* --- Portrait Container --- */
 .portrait-container {
-  position: absolute; /* Lifts the element out of the normal flow */
-  top: -75px; /* Position from the top of the .container */
-  right: 6vw; /* Position from the right edge of the .container */
-  width: 600px; /* A large, fixed width for the image */
-  z-index: 10; /* Ensures the image is on top of the banner */
+  position: absolute; 
+  top: -5vh;
+  right: 6vw;
+  width: 32vw;
+  z-index: 10;
 }
 
 .portrait-container img {
@@ -94,10 +93,10 @@ body {
   }
 
   .signature-container svg {
-    height: 300px;
+    height: 30vh;
     width: auto;
     overflow: visible;
-    margin-left: -75px;
+    margin-left: -5vw;
   }
 
    @keyframes draw {
