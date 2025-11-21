@@ -4,73 +4,213 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="work.css" />
-    <title>Emma Huber - Work</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>Emma Huber - My Work</title>
     <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <div
-      v-scope="{
-        projects: [
-          {
-            title: 'E-commerce Platform',
-            description: 'A modern, responsive e-commerce site built with a focus on user experience and clean design.',
-            link: '#',
-            image: '../assets/project1.jpg'
-          },
-          {
-            title: 'Interactive Data Dashboard',
-            description: 'A data visualization tool that provides real-time analytics with an intuitive interface.',
-            link: '#',
-            image: '../assets/project2.jpg'
-          },
-          {
-            title: 'Brand Identity & Website',
-            description: 'Designed a complete brand identity and built a marketing website for a local startup.',
-            link: '#',
-            image: '../assets/project3.png'
-          },
-          {
-            title: 'Temp1',
-            description: 'Temp text.',
-            link: '#',
-            image: '../assets/project4.png'
-          },
-          {
-            title: 'Temp2',
-            description: 'Temp text.',
-            link: '#',
-            image: '../assets/project1.jpg'
-          },
-          {
-            title: 'Temp3',
-            description: 'Temp text.',
-            link: '#',
-            image: '../assets/project1.jpg'
-          }
-        ],
-      }"
-      v-cloak
-    >
-      <main>
-        <div class="projects-container">
-          <section class="content-section">
-            <article v-for="project in projects">
-              <figure>
-                <div class="card">
-                  <img :src="project.image" :alt="project.title">
-                  <div class="card__content">
-                    <p class="card__title">{{ project.title }}</p>
-                    <p class="card__description">{{ project.description }}</p>
-                  </div>
-                </div>
-              </figure>
-            </article>
-          </section>
+    <div v-scope="projectsApp()">
+      <!-- Back Button -->
+      <a href="../home" class="back-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Back</span>
+      </a>
+
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1 class="page-title">My Work</h1>
+        <p class="page-subtitle">A collection of fashion design & management projects</p>
+      </header>
+
+      <!-- Masonry Grid -->
+      <main class="masonry-container">
+        <div 
+          v-for="(project, index) in projects" 
+          :key="index"
+          class="masonry-item"
+          :data-size-desktop="project.sizeDesktop"
+          :data-size-tablet="project.sizeTablet"
+          :data-size-mobile="project.sizeMobile"
+          @click="openModal(index)"
+        >
+          <div class="project-card">
+            <div class="card-icon">
+              <i :class="project.icon"></i>
+            </div>
+            <div class="card-overlay">
+              <h3 class="card-title">{{ project.title }}</h3>
+              <p class="card-category">{{ project.category }}</p>
+            </div>
+          </div>
         </div>
       </main>
+
+      <!-- Modal -->
+      <div 
+        v-if="selectedProject !== null" 
+        class="modal-backdrop"
+        @click="closeModal"
+      >
+        <div class="modal-content" @click.stop>
+          <button class="modal-close" @click="closeModal">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          
+          <div class="modal-body">
+            <div class="modal-image">
+              <img :src="projects[selectedProject].image" :alt="projects[selectedProject].title" />
+            </div>
+            <div class="modal-info">
+              <h2 class="modal-title">{{ projects[selectedProject].title }}</h2>
+              <p class="modal-category">{{ projects[selectedProject].category }}</p>
+              <div class="modal-description">
+                <p>{{ projects[selectedProject].description }}</p>
+              </div>
+              <div class="modal-details">
+                <div class="detail-item">
+                  <span class="detail-label">Year</span>
+                  <span class="detail-value">{{ projects[selectedProject].year }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Role</span>
+                  <span class="detail-value">{{ projects[selectedProject].role }}</span>
+                </div>
+                <div v-if="projects[selectedProject].tools" class="detail-item">
+                  <span class="detail-label">Tools</span>
+                  <span class="detail-value">{{ projects[selectedProject].tools }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <script src="js/slides.js"></script>
     <script src="../petite-vue.iife.js" defer init></script>
+    <script>
+      function projectsApp() {
+        return {
+          selectedProject: null,
+          projects: [
+            {
+              title: "Spring Collection 2024",
+              category: "Fashion Design",
+              icon: "fas fa-leaf",
+              image: "../assets/project1-full.jpg",
+              description: "A vibrant spring collection inspired by botanical gardens and sustainable fashion practices. This collection features natural dyes and organic fabrics.",
+              year: "2024",
+              role: "Lead Designer",
+              tools: "Adobe Illustrator, CLO3D",
+              sizeDesktop: "large",
+              sizeTablet: "medium",
+              sizeMobile: "small"
+            },
+            {
+              title: "Brand Identity Redesign",
+              category: "Fashion Management",
+              icon: "fas fa-palette",
+              image: "../assets/project2-full.jpg",
+              description: "Complete brand overhaul for an emerging sustainable fashion label, including logo design, brand guidelines, and marketing strategy.",
+              year: "2023",
+              role: "Brand Manager",
+              tools: "Adobe Creative Suite",
+              sizeDesktop: "medium",
+              sizeTablet: "small",
+              sizeMobile: "medium"
+            },
+            {
+              title: "Avant-Garde Editorial",
+              category: "Fashion Design",
+              icon: "fas fa-wand-magic-sparkles",
+              image: "../assets/project3-full.jpg",
+              description: "Experimental fashion editorial exploring the intersection of architecture and fashion through structured silhouettes.",
+              year: "2024",
+              role: "Designer & Stylist",
+              tools: "Hand Draping, Photoshop",
+              sizeDesktop: "small",
+              sizeTablet: "small",
+              sizeMobile: "medium"
+            },
+            {
+              title: "Sustainable Fashion Campaign",
+              category: "Fashion Management",
+              icon: "fas fa-recycle",
+              image: "../assets/project4-full.jpg",
+              description: "Marketing campaign promoting sustainable fashion choices and circular economy principles in the fashion industry.",
+              year: "2023",
+              role: "Campaign Manager",
+              tools: "Social Media, Analytics",
+              sizeDesktop: "small",
+              sizeTablet: "medium",
+              sizeMobile: "small"
+            },
+            {
+              title: "Capsule Collection",
+              category: "Fashion Design",
+              icon: "fas fa-shirt",
+              image: "../assets/project5-full.jpg",
+              description: "A minimalist capsule collection focusing on versatile, timeless pieces that can be mixed and matched effortlessly.",
+              year: "2024",
+              role: "Lead Designer",
+              tools: "Pattern Making, Sewing",
+              sizeDesktop: "medium",
+              sizeTablet: "medium",
+              sizeMobile: "small"
+            },
+            {
+              title: "Fashion Show Production",
+              category: "Fashion Management",
+              icon: "fas fa-star",
+              image: "../assets/project6-full.jpg",
+              description: "End-to-end production management of a runway show, including venue selection, model casting, and event coordination.",
+              year: "2023",
+              role: "Production Manager",
+              tools: "Project Management",
+              sizeDesktop: "large",
+              sizeTablet: "medium",
+              sizeMobile: "medium"
+            },
+            {
+              title: "Capsule Collection",
+              category: "Fashion Design",
+              icon: "fas fa-shirt",
+              image: "../assets/project5-full.jpg",
+              description: "A minimalist capsule collection focusing on versatile, timeless pieces that can be mixed and matched effortlessly.",
+              year: "2024",
+              role: "Lead Designer",
+              tools: "Pattern Making, Sewing",
+              sizeDesktop: "small",
+              sizeTablet: "small",
+              sizeMobile: "small"
+            },
+            {
+              title: "Fashion Show Production",
+              category: "Fashion Management",
+              icon: "fas fa-star",
+              image: "../assets/project6-full.jpg",
+              description: "End-to-end production management of a runway show, including venue selection, model casting, and event coordination.",
+              year: "2023",
+              role: "Production Manager",
+              tools: "Project Management",
+              sizeDesktop: "small",
+              sizeTablet: "small",
+              sizeMobile: "large"
+            }
+          ],
+          openModal(index) {
+            this.selectedProject = index;
+            document.body.style.overflow = 'hidden';
+          },
+          closeModal() {
+            this.selectedProject = null;
+            document.body.style.overflow = 'auto';
+          }
+        }
+      }
+    </script>
   </body>
 </html>

@@ -17,26 +17,36 @@ body {
 }
 
 /* --- Back Arrow --- */
-.back-arrow {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
+.back-button {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 100;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--pastel-pink);
+  color: var(--dark-grey);
   text-decoration: none;
-  color: var(--cream);
-  font-size: 1.75rem;
-  font-weight: 700;
-  font-family: var(--font-primary);
-  transition: color 0.3s ease-out;
+  border: 2px solid var(--grey);
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.back-arrow svg {
-  width: 60px;
-  height: 60px;
-  stroke: var(--cream);
-  transition: stroke 0.3s ease-out;
+.back-button:hover {
+  background-color: var(--cream);
+  border-color: var(--cream);
+  transform: translateX(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.back-button svg {
+  width: 20px;
+  height: 20px;
 }
 
 .banner {
@@ -55,7 +65,8 @@ body {
   margin: 0;
   color: var(--dark-grey);
   white-space: nowrap;
-  font-size: 25rem;
+  /* Use clamp() to set a min, preferred, and max size */
+  font-size: clamp(5rem, 20vw, 25rem);
 }
 
 /* --- Scroll Down Arrow --- */
@@ -265,13 +276,15 @@ svg.squiggle {
   left: -120px;
   height: 400vh;
   width: 100%;
-  overflow-y: visible;
+  /* Use 'overflow: visible' to be safe on all browsers */
+  overflow: visible; 
+}
 
-  path {
-    stroke: var(--cream);
-    stroke-width: 1.5rem;
-    stroke-linecap: round;
-  }
+/* This rule is now separate */
+svg.squiggle path {
+  stroke: var(--cream);
+  stroke-width: 1.5rem;
+  stroke-linecap: round;
 }
 
 .page-end-redirect {
