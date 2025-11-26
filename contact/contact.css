@@ -1,0 +1,344 @@
+@import '../global.css';
+
+body {
+  background-color: var(--cream);
+  color: var(--dark-grey);
+  font-family: var(--font-primary);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* --- Back Button --- */
+.back-button {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--cream);
+  color: var(--dark-grey);
+  text-decoration: none;
+  border: 2px solid var(--grey);
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.back-button:hover {
+  background-color: var(--pastel-pink);
+  border-color: var(--pastel-pink);
+  transform: translateX(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.back-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* --- Main Container --- */
+.container.contact-page {
+  max-width: 35vw;
+  margin: 0;
+  padding: 8rem 3rem 3rem 3rem;
+  position: relative;
+  animation: fadeIn 0.8s ease-out;
+  min-height: 100vh;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- Text Zone --- */
+.text-zone {
+  max-width: 600px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin: 0 0 1rem 0;
+  color: var(--dark-grey);
+  font-weight: 400;
+  letter-spacing: -1px;
+}
+
+.intro-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--grey);
+  margin-bottom: 2rem;
+}
+
+/* --- Contact Form --- */
+.contact-form {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.contact-form ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.contact-form li {
+  padding: 0;
+  margin: 0 0 1rem 0;
+  list-style: none;
+  display: block;
+  clear: both;
+  position: relative;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.contact-form li:nth-child(1) { animation-delay: 0.2s; }
+.contact-form li:nth-child(2) { animation-delay: 0.3s; }
+.contact-form li:nth-child(3) { animation-delay: 0.4s; }
+.contact-form li:nth-child(4) { animation-delay: 0.5s; }
+.contact-form li:nth-child(5) { animation-delay: 0.6s; }
+
+.contact-form li.half {
+  width: 49%;
+  margin-left: 2%;
+  float: left;
+  clear: none;
+}
+
+.contact-form li.half:first-child {
+  margin-left: 0;
+}
+
+.contact-form input[type='text'],
+.contact-form input[type='email'] {
+  width: 100%;
+  border: 2px solid var(--grey);
+  background: var(--cream);
+  height: 50px;
+  font-size: 16px;
+  color: var(--dark-grey);
+  padding: 0 20px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-family: var(--font-primary);
+}
+
+.contact-form input[type='text']:focus,
+.contact-form input[type='email']:focus {
+  outline: none;
+  border-color: var(--pastel-pink);
+  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.2);
+}
+
+.contact-form textarea {
+  width: 100%;
+  border: 2px solid var(--grey);
+  background: var(--cream);
+  font-size: 16px;
+  color: var(--dark-grey);
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: 150px;
+  border-radius: 8px;
+  resize: vertical;
+  transition: all 0.3s ease;
+  font-family: var(--font-primary);
+}
+
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--pastel-pink);
+  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.2);
+}
+
+.contact-form ::placeholder {
+  color: var(--grey);
+  opacity: 0.6;
+}
+
+.flat-button {
+  color: var(--dark-grey);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-decoration: none;
+  padding: 12px 30px;
+  border: 2px solid var(--grey);
+  float: right;
+  border-radius: 30px;
+  background: transparent;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-primary);
+}
+
+.flat-button:hover:not(.sending) {
+  background-color: var(--pastel-pink);
+  border-color: var(--pastel-pink);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.flat-button.sending {
+  cursor: not-allowed;
+  background-color: var(--grey);
+  border-color: var(--grey);
+  color: white;
+  opacity: 0.7;
+}
+
+/* --- Info Map --- */
+.info-map {
+  position: fixed;
+  top: 15%;
+  right: 5%;
+  transform: translateY(-50%);
+  background: var(--dark-grey);
+  color: var(--cream);
+  padding: 2rem;
+  z-index: 2000;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  pointer-events: none; /* Optional: lets you click the map 'through' the box area */
+}
+
+/* Re-enable pointer events for text selection if needed */
+.info-map * {
+    pointer-events: auto;
+}
+
+.info-map span {
+  font-size: 1rem;
+  color: var(--pastel-pink);
+  font-weight: 400;
+}
+
+/* --- Map --- */
+#map {
+  position: fixed !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 60vw !important; /* Forces exactly half the screen width */
+  height: 100vh !important;
+  z-index: 1; /* Sits behind the info-map */
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* This ensures the existing media queries still work by linking the class to the ID behavior */
+.map-wrap {
+  width: 60vw;
+  height: 100vh;
+  animation: slideInRight 1s 0.5s forwards;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 1100px) {
+  .container.contact-page {
+    max-width: 100%;
+    padding: 9rem 2rem 3rem 2rem;
+  }
+
+  .map-wrap {
+    display: none;
+  }
+
+  .info-map {
+    position: static;
+    transform: none;
+    margin-top: -38vh;
+    max-width: 100%;
+    text-align: center;
+    pointer-events: all;
+  }
+
+  .text-zone {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .back-button {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .container.contact-page {
+    padding: 5rem 1.5rem 2rem 1.5rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .intro-text {
+    font-size: 1rem;
+  }
+
+  .contact-form li.half {
+    width: 100%;
+    margin-left: 0;
+    float: none;
+  }
+
+  .flat-button {
+    float: none;
+    width: 100%;
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .intro-text {
+    font-size: 0.95rem;
+  }
+
+  .info-map {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+}

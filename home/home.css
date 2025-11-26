@@ -406,6 +406,11 @@ body {
 
 /* This query is for tablets / smaller laptops */
 @media (max-width: 1300px) {
+  body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
   .portrait-container {
     width: clamp(200px, 32vw, 350px);
   }
@@ -427,6 +432,17 @@ body {
     top: auto;
     width: 100%;
     padding-top: 3vh;
+    
+    max-width: 100%; 
+    margin: 0 auto; 
+  }
+
+  .header-container svg {
+    max-width: 450px; 
+  }
+
+  .text-style {
+    font-size: 25px; /* Change this px value to resize text */
   }
 
   .banner {
@@ -457,7 +473,7 @@ body {
   }
 
   .portrait-container {
-    display: none; /* HIDE PORTRAIT ON MOBILE */
+    display: none; 
   }
 
   .button-wrapper {

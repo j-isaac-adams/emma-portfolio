@@ -65,7 +65,6 @@ body {
   margin: 0;
   color: var(--dark-grey);
   white-space: nowrap;
-  /* Use clamp() to set a min, preferred, and max size */
   font-size: clamp(5rem, 20vw, 25rem);
 }
 
@@ -83,7 +82,6 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
-
   cursor: pointer;
   animation: pulse 2s infinite;
 }
@@ -116,7 +114,6 @@ body {
   }
 }
 
-/* The Hover Effect */
 .scroll-down-arrow:hover svg {
   stroke: var(--dark-grey);
 }
@@ -125,14 +122,7 @@ body {
   color: var(--dark-grey);
 }
 
-.back-arrow:hover {
-  color: var(--dark-grey);
-  svg {
-    stroke: var(--dark-grey);
-  }
-}
-
-/* --- 1. Define the Keyframe Animations --- */
+/* --- Keyframe Animations --- */
 @keyframes fade-out {
   to {
     opacity: 0;
@@ -151,33 +141,26 @@ body {
 }
 
 @keyframes fade-in-and-out {
-  /* Fades in as it enters the screen */
   0% {
     opacity: 0;
     transform: translateY(50px);
   }
-
-  /* Stays fully visible while in the middle of the screen */
   25%, 75% {
     opacity: 1;
     transform: translateY(0);
   }
-
-  /* Fades out as it leaves the screen */
   100% {
     opacity: 0;
     transform: translateY(-50px);
   }
 }
 
-
-/* --- 2. Animate the Background Title --- */
+/* --- Animate the Background Title --- */
 .title-container {
   position: fixed;
   padding: 2rem;
   box-sizing: border-box;
   overflow: hidden;
-  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -187,14 +170,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-
   animation: fade-out linear forwards;
   animation-timeline: scroll(root);  
   animation-range: 0 300px;
 }
 
-/* --- 3. Style and Animate the Scrolling Sections --- */
+/* --- Scrolling Sections --- */
 .scroll-container {
   position: relative;
   z-index: 10;
@@ -203,29 +184,26 @@ body {
 
 .scroll-section {
   max-width: 75vw;
-  
   margin: 10vh auto;
-
   min-height: 90vh;
   display: flex;
   gap: 2rem;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-
   animation: fade-in-and-out linear forwards;
   animation-timeline: view();
   animation-range: entry 5% exit 70%;
 }
 
 .scroll-section .text-content {
-    background-color: var(--cream);
-    padding: 2rem; 
-    border-radius: 10px; 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    width: 50%;
-    position: relative;
-    font-size: 1.5rem;
+  background-color: var(--cream);
+  padding: 2rem; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  width: 50%;
+  position: relative;
+  font-size: 1.5rem;
 }
 
 .scroll-section .image-container {
@@ -233,7 +211,6 @@ body {
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
-
   flex: 1;
   width: 50%;
 }
@@ -254,7 +231,6 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-
   width: 0;
   height: 0;
   border: 20px solid transparent;
@@ -276,11 +252,9 @@ svg.squiggle {
   left: -120px;
   height: 400vh;
   width: 100%;
-  /* Use 'overflow: visible' to be safe on all browsers */
   overflow: visible; 
 }
 
-/* This rule is now separate */
 svg.squiggle path {
   stroke: var(--cream);
   stroke-width: 1.5rem;
@@ -291,6 +265,7 @@ svg.squiggle path {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 3rem 0;
 }
 
 .back-home-btn {
@@ -311,4 +286,142 @@ svg.squiggle path {
   background-color: var(--dark-grey);
   color: var(--cream);
   transform: translateY(-2px);
+}
+
+/* --- Responsive Design --- */
+
+@media (max-width: 1100px) {
+  .banner h1 {
+    font-size: clamp(3rem, 15vw, 15rem);
+  }
+
+  .scroll-section {
+    max-width: 85vw;
+    min-height: auto;
+    padding: 2rem 0;
+  }
+
+  .scroll-section .text-content {
+    font-size: 1.2rem;
+    padding: 1.5rem;
+  }
+
+  svg.squiggle {
+    left: -80px;
+    height: 350vh;
+  }
+
+  svg.squiggle path {
+    stroke-width: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .back-button {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .banner {
+    padding: 1.5rem;
+  }
+
+  .banner h1 {
+    font-size: clamp(2.5rem, 12vw, 10rem);
+  }
+
+  .scroll-down-wrapper {
+    top: 25vh;
+    padding-right: 40%;
+    position: relative;
+  }
+
+  .scroll-down-arrow svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .scroll-down-arrow span {
+    font-size: 1rem;
+  }
+
+  /* Change title container to relative positioning on mobile */
+  .title-container {
+    position: relative;
+    animation: none;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .scroll-container {
+    margin-top: 0;
+  }
+
+  .scroll-section {
+    max-width: 90vw;
+    flex-direction: column !important;
+    gap: 1.5rem;
+    margin: 3rem auto;
+    min-height: auto;
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .scroll-section .image-container,
+  .scroll-section .text-content {
+    width: 100%;
+  }
+
+  .scroll-section .text-content {
+    font-size: 1rem;
+    padding: 1.5rem;
+  }
+
+  /* Remove arrow pointers on mobile */
+  .scroll-section .text-content::before {
+    display: none;
+  }
+
+  /* Hide SVG squiggle on mobile */
+  svg.squiggle {
+    display: none;
+  }
+
+  .back-home-btn {
+    font-size: 1rem;
+    padding: 0.875rem 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner h1 {
+    font-size: clamp(2rem, 10vw, 8rem);
+  }
+
+  .scroll-section {
+    max-width: 95vw;
+    margin: 2rem auto;
+    gap: 1rem;
+  }
+
+  .scroll-section .text-content {
+    font-size: 0.95rem;
+    padding: 1.25rem;
+  }
+
+  .scroll-section .image-container {
+    padding: 10px;
+  }
+
+  .page-end-redirect {
+    padding: 2rem 0;
+  }
+
+  .back-home-btn {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.5rem;
+  }
 }
