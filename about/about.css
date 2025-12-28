@@ -333,9 +333,10 @@ svg.squiggle path {
   }
 
   .scroll-down-wrapper {
-    top: 25vh;
-    padding-right: 40%;
-    position: relative;
+    position: absolute;
+    top: 75vh;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .scroll-down-arrow svg {

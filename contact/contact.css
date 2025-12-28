@@ -1,13 +1,16 @@
 @import '../global.css';
 
-body {
+/* Lock scrolling on all mobile devices */
+html, body {
   background-color: var(--cream);
   color: var(--dark-grey);
   font-family: var(--font-primary);
   margin: 0;
   padding: 0;
-  min-height: 100vh;
   overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 /* --- Back Button --- */
@@ -41,6 +44,7 @@ body {
 .back-button svg {
   width: 20px;
   height: 20px;
+  flex-shrink: 0;
 }
 
 /* --- Main Container --- */
@@ -65,6 +69,8 @@ body {
 /* --- Text Zone --- */
 .text-zone {
   max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
   animation: fadeInUp 0.8s ease-out;
 }
 
@@ -97,7 +103,8 @@ body {
 /* --- Contact Form --- */
 .contact-form {
   width: 100%;
-  margin-top: 2rem;
+  max-width: 600px;
+  margin: 2rem auto 0;
 }
 
 .contact-form ul {
@@ -215,24 +222,20 @@ body {
   opacity: 0.7;
 }
 
-/* --- Info Map --- */
+/* --- Info Map - ALWAYS VISIBLE AT BOTTOM --- */
 .info-map {
   position: fixed;
-  top: 15%;
-  right: 5%;
-  transform: translateY(-50%);
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: var(--dark-grey);
   color: var(--cream);
-  padding: 2rem;
-  z-index: 2000;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  pointer-events: none; /* Optional: lets you click the map 'through' the box area */
-}
-
-/* Re-enable pointer events for text selection if needed */
-.info-map * {
-    pointer-events: auto;
+  padding: 1rem 2rem;
+  z-index: 3000;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  pointer-events: all;
 }
 
 .info-map span {
@@ -247,9 +250,9 @@ body {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 60vw !important; /* Forces exactly half the screen width */
+  width: 60vw !important;
   height: 100vh !important;
-  z-index: 1; /* Sits behind the info-map */
+  z-index: 1;
 }
 
 @keyframes slideInRight {
@@ -263,7 +266,6 @@ body {
   }
 }
 
-/* This ensures the existing media queries still work by linking the class to the ID behavior */
 .map-wrap {
   width: 60vw;
   height: 100vh;
@@ -271,48 +273,131 @@ body {
 }
 
 /* --- Responsive Design --- */
+
+/* Tablet and smaller laptops */
+@media (max-width: 1200px) {
+  .container.contact-page {
+    max-width: 45vw;
+    margin: 0 auto;
+    padding: 8rem 2.5rem 3rem 2.5rem;
+  }
+  
+  #map {
+    width: 50vw !important;
+  }
+  
+  .map-wrap {
+    width: 50vw;
+  }
+}
+
+/* Hide map on medium screens */
 @media (max-width: 1100px) {
   .container.contact-page {
-    max-width: 100%;
-    padding: 9rem 2rem 3rem 2rem;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 7rem 2rem 6rem 2rem;
   }
 
+  #map,
   .map-wrap {
-    display: none;
-  }
-
-  .info-map {
-    position: static;
-    transform: none;
-    margin-top: -38vh;
-    max-width: 100%;
-    text-align: center;
-    pointer-events: all;
+    display: none !important;
   }
 
   .text-zone {
     max-width: 100%;
   }
+  
+  .contact-form {
+    max-width: 100%;
+  }
 }
 
+/* Tablet */
+@media (max-width: 900px) {
+  .container.contact-page {
+    max-width: 600px;
+    padding: 6rem 2rem 6rem 2rem;
+  }
+  
+  .page-title {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+  
+  .info-map {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .info-map span {
+    font-size: 0.95rem;
+  }
+}
+
+/* Mobile - Lock scrolling and fit everything */
 @media (max-width: 768px) {
-  .back-button {
-    top: 1rem;
-    left: 1rem;
-    padding: 0.6rem 1rem;
-    font-size: 0.85rem;
+  .container.contact-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 3.5rem 1rem 5rem 1rem;
+    overflow: hidden;
+    max-width: none;
+    box-sizing: border-box;
   }
 
-  .container.contact-page {
-    padding: 5rem 1.5rem 2rem 1.5rem;
+  .text-zone {
+    flex-shrink: 0;
+    margin-bottom: 0.75rem;
+    width: 100%;
   }
 
   .page-title {
-    font-size: 2rem;
+    padding-top: 2rem; 
+    font-size: 1.6rem;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.5px;
   }
 
   .intro-text {
-    font-size: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+  
+  .contact-form {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0;
+    max-width: 100%;
+    padding-right: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .contact-form::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .contact-form::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .contact-form::-webkit-scrollbar-thumb {
+    background: var(--grey);
+    border-radius: 2px;
+  }
+
+  .contact-form li {
+    margin-bottom: 0.7rem;
   }
 
   .contact-form li.half {
@@ -320,25 +405,122 @@ body {
     margin-left: 0;
     float: none;
   }
+  
+  .contact-form input[type='text'],
+  .contact-form input[type='email'] {
+    height: 42px;
+    font-size: 14px;
+    padding: 0 14px;
+  }
+  
+  .contact-form textarea {
+    min-height: 80px;
+    font-size: 14px;
+    padding: 14px;
+  }
 
   .flat-button {
     float: none;
     width: 100%;
     display: block;
+    padding: 11px 24px;
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    letter-spacing: 1.5px;
+  }
+  
+  .info-map {
+    padding: 0.8rem 1rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  
+  .info-map span {
+    font-size: 0.75rem;
   }
 }
 
+/* Small mobile devices */
 @media (max-width: 480px) {
+  .container.contact-page {
+    padding: 3rem 0.875rem 5rem 0.875rem;
+  }
+
   .page-title {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
 
   .intro-text {
-    font-size: 0.95rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+  
+  .contact-form li {
+    margin-bottom: 0.6rem;
+  }
+  
+  .contact-form input[type='text'],
+  .contact-form input[type='email'] {
+    height: 40px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+  
+  .contact-form textarea {
+    min-height: 70px;
+    padding: 12px;
+    font-size: 13px;
   }
 
   .info-map {
-    padding: 1.5rem;
-    font-size: 1rem;
+    padding: 0.7rem 0.875rem;
+    font-size: 0.7rem;
+  }
+  
+  .info-map span {
+    font-size: 0.7rem;
+  }
+  
+  .flat-button {
+    padding: 10px 20px;
+    font-size: 0.7rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+  .page-title {
+    font-size: 1.3rem;
+  }
+  
+  .intro-text {
+    font-size: 0.75rem;
+  }
+  
+  .contact-form input[type='text'],
+  .contact-form input[type='email'],
+  .contact-form textarea {
+    font-size: 12px;
+  }
+  
+  .info-map {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.65rem;
+  }
+  
+  .info-map span {
+    font-size: 0.65rem;
+  }
+}
+
+/* Prevent any unwanted scrolling */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .container.contact-page {
+    height: -webkit-fill-available;
   }
 }

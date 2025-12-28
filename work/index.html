@@ -4,16 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="work.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <title>Emma Huber - My Work</title>
-    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon" />
   </head>
   <body>
     <div v-scope="projectsApp()">
       <!-- Back Button -->
       <a href="../home" class="back-button">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M19 12H5M5 12L12 19M5 12L12 5"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
         <span>Back</span>
       </a>
@@ -21,13 +36,15 @@
       <!-- Page Header -->
       <header class="page-header">
         <h1 class="page-title">My Work</h1>
-        <p class="page-subtitle">A collection of fashion design & management projects</p>
+        <p class="page-subtitle">
+          A collection of fashion design & management projects
+        </p>
       </header>
 
       <!-- Masonry Grid -->
       <main class="masonry-container">
-        <div 
-          v-for="(project, index) in projects" 
+        <div
+          v-for="(project, index) in projects"
           :key="index"
           class="masonry-item"
           :data-size-desktop="project.sizeDesktop"
@@ -48,42 +65,164 @@
       </main>
 
       <!-- Modal -->
-      <div 
-        v-if="selectedProject !== null" 
+      <div
+        v-if="selectedProject !== null"
         class="modal-backdrop"
         @click="closeModal"
       >
         <div class="modal-content" @click.stop>
           <button class="modal-close" @click="closeModal">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 6L6 18M6 6L18 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </button>
-          
+
           <div class="modal-body">
             <div class="modal-image">
-              <img :src="projects[selectedProject].image" :alt="projects[selectedProject].title" />
+              <img
+                :src="projects[selectedProject].images[currentImageIndex]"
+                :alt="projects[selectedProject].title"
+              />
+
+              <!-- Carousel Navigation -->
+              <button
+                v-if="projects[selectedProject].images.length > 1"
+                class="carousel-btn carousel-prev"
+                @click="prevImage"
+                :disabled="currentImageIndex === 0"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15 18L9 12L15 6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+
+              <button
+                v-if="projects[selectedProject].images.length > 1"
+                class="carousel-btn carousel-next"
+                @click="nextImage"
+                :disabled="currentImageIndex === projects[selectedProject].images.length - 1"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 18L15 12L9 6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+
+              <!-- Carousel Indicators -->
+              <div
+                v-if="projects[selectedProject].images.length > 1"
+                class="carousel-indicators"
+              >
+                <button
+                  v-for="(img, idx) in projects[selectedProject].images"
+                  :key="idx"
+                  class="indicator"
+                  :class="{ active: idx === currentImageIndex }"
+                  @click="goToImage(idx)"
+                ></button>
+              </div>
             </div>
             <div class="modal-info">
               <h2 class="modal-title">{{ projects[selectedProject].title }}</h2>
-              <p class="modal-category">{{ projects[selectedProject].category }}</p>
+              <p class="modal-category">
+                {{ projects[selectedProject].category }}
+              </p>
               <div class="modal-description">
                 <p>{{ projects[selectedProject].description }}</p>
               </div>
               <div class="modal-details">
                 <div class="detail-item">
                   <span class="detail-label">Year</span>
-                  <span class="detail-value">{{ projects[selectedProject].year }}</span>
+                  <span class="detail-value"
+                    >{{ projects[selectedProject].year }}</span
+                  >
                 </div>
                 <div class="detail-item">
                   <span class="detail-label">Role</span>
-                  <span class="detail-value">{{ projects[selectedProject].role }}</span>
+                  <span class="detail-value"
+                    >{{ projects[selectedProject].role }}</span
+                  >
                 </div>
                 <div v-if="projects[selectedProject].tools" class="detail-item">
                   <span class="detail-label">Tools</span>
-                  <span class="detail-value">{{ projects[selectedProject].tools }}</span>
+                  <span class="detail-value"
+                    >{{ projects[selectedProject].tools }}</span
+                  >
                 </div>
               </div>
+
+              <a
+                v-if="projects[selectedProject].download"
+                :href="projects[selectedProject].download"
+                download
+                class="download-btn"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M7 10L12 15L17 10"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 15V3"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Download Project File
+              </a>
             </div>
           </div>
         </div>
@@ -95,121 +234,174 @@
       function projectsApp() {
         return {
           selectedProject: null,
+          currentImageIndex: 0,
           projects: [
             {
-              title: "Spring Collection 2024",
-              category: "Fashion Design",
+              title: "Beldrie",
+              category: "Internship",
               icon: "fas fa-leaf",
-              image: "../assets/project1-full.jpg",
-              description: "A vibrant spring collection inspired by botanical gardens and sustainable fashion practices. This collection features natural dyes and organic fabrics.",
-              year: "2024",
-              role: "Lead Designer",
-              tools: "Adobe Illustrator, CLO3D",
+              images: [
+                "../assets/Beldrie/emma_beldrie.jpeg",
+                "../assets/Beldrie/beldrie_branding.png",
+                "../assets/Beldrie/beldrie_design.png",
+              ],
+              description:
+                "As a Design Intern at Beldrie, I helped develop the 2026 spring/summer line collections, as well as provided assistance with the branding for the new line. I created color palettes, logos, tags, and flat mock-ups of my concepts for the brand. Additionally, I also helped with creating social media and marketing content through on-course photos/videos",
+              year: "2025",
+              role: "Design Intern",
+              tools: "Adobe Illustrator, Social Media",
+              download: "../assets/Beldrie/beldrie_sweatshirt_designs.pdf",
               sizeDesktop: "large",
               sizeTablet: "medium",
-              sizeMobile: "small"
+              sizeMobile: "small",
             },
             {
-              title: "Brand Identity Redesign",
-              category: "Fashion Management",
+              title: "Computer-Aided Design Textile Collection",
+              category: "Related School Experience",
               icon: "fas fa-palette",
-              image: "../assets/project2-full.jpg",
-              description: "Complete brand overhaul for an emerging sustainable fashion label, including logo design, brand guidelines, and marketing strategy.",
-              year: "2023",
-              role: "Brand Manager",
-              tools: "Adobe Creative Suite",
+              images: [
+                "../assets/Computer Aided Design/pattern_1.png",
+                "../assets/Computer Aided Design/pattern_2.png",
+                "../assets/Computer Aided Design/pattern_3.png",
+              ],
+              description:
+                "While completing FTM 271, Computer-Aided Design for Textiles, I created a full portfolio featuring my digital collection, La Boulangerie, a loungewear and pajama line inspired by elegant yet interesting and exciting patterns, all based on items commonly found in a French bakery. I created 12 digital motifs using Adobe Illustrator, which were then used to create 4 print, 4 knit, and 4 woven fabrics. Finally, these original patterned fabrics were then simulated on garments using Adobe Photoshop to replicate how they would look if produced.",
+              year: "2025",
+              role: "Student Designer",
+              tools: "Adobe Illustrator, Adobe Photoshop, NedGraphics",
+              download:
+                "../assets/Computer Aided Design/emma_huber_collection.pdf",
               sizeDesktop: "medium",
               sizeTablet: "small",
-              sizeMobile: "medium"
+              sizeMobile: "medium",
             },
             {
-              title: "Avant-Garde Editorial",
-              category: "Fashion Design",
+              title: "Fashion Product Analysis",
+              category: "Related School Experience",
               icon: "fas fa-wand-magic-sparkles",
-              image: "../assets/project3-full.jpg",
-              description: "Experimental fashion editorial exploring the intersection of architecture and fashion through structured silhouettes.",
-              year: "2024",
-              role: "Designer & Stylist",
-              tools: "Hand Draping, Photoshop",
+              images: [
+                "../assets/Fashion Product Analysis/fashion_product.jpeg",
+              ],
+              description:
+                "In FTM 219, Fashion Product Analysis, we learned the foundational knowledge on garment and product creation. I grew my hands-on industrial manufacturing techniques through producing apparel products from cut patterns to final finished garments. I created multiple products, including a lined backpack with custom beading, a sweatshirt, and a women's sheath dress. I also completed the course with an apparel analysis project, where we analyzed an already produced skort and created a finalized techpack and 3d simulation of the garment.",
+              year: "2025",
+              role: "Student",
+              tools: "Industrial sewing and serging, Garment Construction",
+              download:
+                "../assets/Fashion Product Analysis/apparel_analysis.pdf",
               sizeDesktop: "small",
               sizeTablet: "small",
-              sizeMobile: "medium"
+              sizeMobile: "medium",
             },
             {
-              title: "Sustainable Fashion Campaign",
-              category: "Fashion Management",
+              title: "Brand Marketing",
+              category: "Related School Experience",
               icon: "fas fa-recycle",
-              image: "../assets/project4-full.jpg",
-              description: "Marketing campaign promoting sustainable fashion choices and circular economy principles in the fashion industry.",
-              year: "2023",
-              role: "Campaign Manager",
-              tools: "Social Media, Analytics",
+              images: [
+                "../assets/Brand Marketing/cover_1.jpg",
+                "../assets/Brand Marketing/cover_2.jpg",
+              ],
+              description:
+                "Brand Marketing dives into the foundational information on marketing. For our final project, we proposed a marketing strategy for Coach, specifically targeting their underserved market of millennials. In order to target this market, we created a sub-line of Coach, Coachtopolosis, which brings the original 90s city bag back and creates nostalgia. For this marketing strategy, I created a 2-page magazine spread that features a “now & then”, hoping to create nostalgia in millennial consumers by bringing back the old 90’s aesthetic, color palettes, and styles, but shows them in a modern light.",
+              year: "2025",
+              role: "Student Researcher",
+              tools: "Brand Marketing, Digital Content Creation, Canva",
               sizeDesktop: "small",
               sizeTablet: "medium",
-              sizeMobile: "small"
+              sizeMobile: "small",
             },
             {
-              title: "Capsule Collection",
-              category: "Fashion Design",
+              title: "Fashion Product Design",
+              category: "Related School Experience",
               icon: "fas fa-shirt",
-              image: "../assets/project5-full.jpg",
-              description: "A minimalist capsule collection focusing on versatile, timeless pieces that can be mixed and matched effortlessly.",
-              year: "2024",
-              role: "Lead Designer",
-              tools: "Pattern Making, Sewing",
+              images: ["../assets/Fashion Product Design/shirt_design.png"],
+              description:
+                "FTM 315 practices the design and development of fashion apparel items, beginning with fabric selection/raw material choices, extending through flat pattern development, pattern engineering, and creation of final products. The final project for this course was the creation of my own garment, using reverse engineering techniques to draft my own patterns, source my own materials, create my own techpack, and sew a finished and professional garment.",
+              year: "2025",
+              role: "Student Designer",
+              tools: "Adobe Illustrator, Fashion Design, Garment Creation",
+              download: "../assets/Fashion Product Design/tech_pack.pdf",
               sizeDesktop: "medium",
               sizeTablet: "medium",
-              sizeMobile: "small"
+              sizeMobile: "small",
             },
             {
-              title: "Fashion Show Production",
-              category: "Fashion Management",
+              title: "Computer-Aided Design for Apparel",
+              category: "Related School Experience",
               icon: "fas fa-star",
-              image: "../assets/project6-full.jpg",
-              description: "End-to-end production management of a runway show, including venue selection, model casting, and event coordination.",
-              year: "2023",
-              role: "Production Manager",
-              tools: "Project Management",
+              images: ["../assets/Trashion Show/trashion_1.JPG"],
+              description:
+                "Computer-Aided Design for Apparel, dives into the operation of industry design software for apparel and other sewn products. Adobe Creative Suite (Illustrator and Photoshop), Gerber Accumark, and 3D virtual design programs were used to create a complete collection, Timeless Grace.",
+              year: "2025",
+              role: "Student Designer",
+              tools: "Adobe Illustrator, Gerber Accumark, CLO-3D",
               sizeDesktop: "large",
               sizeTablet: "medium",
-              sizeMobile: "medium"
+              sizeMobile: "medium",
             },
             {
-              title: "Capsule Collection",
-              category: "Fashion Design",
+              title: "Sustainability Stewards: Trashion Show",
+              category: "Extracurricular",
               icon: "fas fa-shirt",
-              image: "../assets/project5-full.jpg",
-              description: "A minimalist capsule collection focusing on versatile, timeless pieces that can be mixed and matched effortlessly.",
-              year: "2024",
-              role: "Lead Designer",
-              tools: "Pattern Making, Sewing",
+              images: [
+                "../assets/Trashion Show/trashion_1.JPG",
+                "../assets/Trashion Show/trashion_2.JPG",
+                "../assets/Trashion Show/trashion_3.JPG",
+              ],
+              description: " Test content.",
+              year: "2025",
+              role: "Club Member",
+              tools: "Garment Design and Creation, Sustainability",
               sizeDesktop: "small",
               sizeTablet: "small",
-              sizeMobile: "small"
+              sizeMobile: "small",
             },
             {
-              title: "Fashion Show Production",
-              category: "Fashion Management",
+              title: "Fiber Science",
+              category: "Related School Experience",
               icon: "fas fa-star",
-              image: "../assets/project6-full.jpg",
-              description: "End-to-end production management of a runway show, including venue selection, model casting, and event coordination.",
-              year: "2023",
-              role: "Production Manager",
-              tools: "Project Management",
+              images: [
+                "../assets/Fiber Science/fiber.png",
+                "../assets/Fiber Science/chemical.png",
+              ],
+              description:
+                "The Fiber Science course at NC State University, gave me the necessary knowledge on the fundamentals of fibers and their specific qualities and abilities. I was assigned to complete a research project and presentation on Kevlar, testing and understanding its properties, applications, chemical structure, flammability, cross-section, and polarization. All of this information was gathered through hands-on research, including the completion of cross-sectional analysis of the fiber, taking pictures under a microscope, and utilizing NC State’s resources to gather additional information about the fiber.",
+              year: "2025",
+              role: "Student Researcher",
+              tools: "Textile knowledge, Microscope work",
+              download: "../assets/Fiber Science/kevlar.pdf",
               sizeDesktop: "small",
               sizeTablet: "small",
-              sizeMobile: "large"
-            }
+              sizeMobile: "large",
+            },
           ],
           openModal(index) {
             this.selectedProject = index;
-            document.body.style.overflow = 'hidden';
+            this.currentImageIndex = 0;
+            document.body.style.overflow = "hidden";
           },
           closeModal() {
             this.selectedProject = null;
-            document.body.style.overflow = 'auto';
-          }
-        }
+            this.currentImageIndex = 0;
+            document.body.style.overflow = "auto";
+          },
+          nextImage() {
+            if (
+              this.currentImageIndex <
+              this.projects[this.selectedProject].images.length - 1
+            ) {
+              this.currentImageIndex++;
+            }
+          },
+          prevImage() {
+            if (this.currentImageIndex > 0) {
+              this.currentImageIndex--;
+            }
+          },
+          goToImage(index) {
+            this.currentImageIndex = index;
+          },
+        };
       }
     </script>
   </body>
