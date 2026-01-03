@@ -286,6 +286,9 @@ html, body {
 
 /* Small Mobile Adjustments */
 @media (max-width: 768px) {
+  .back-button {
+    left: 1rem;
+  }
   .container.contact-page { padding: 6rem 1rem 1rem 1rem; }
   .page-title { font-size: 1.8rem; }
   .contact-form li.half { width: 100%; margin-left: 0; float: none; }
