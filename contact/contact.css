@@ -1,24 +1,118 @@
 @import '../global.css';
 
-/* Lock scrolling on all mobile devices */
+/* --- 1. Global Reset & Layout --- */
 html, body {
   background-color: var(--cream);
   color: var(--dark-grey);
   font-family: var(--font-primary);
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  position: fixed;
-  width: 100%;
   height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
-/* --- Back Button --- */
+/* This Wrapper creates the Vertical Stack */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  position: relative;
+}
+
+/* --- 2. The Middle Section (Form + Map) --- */
+.content-row {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  min-height: 0;
+}
+
+/* Left Side: Form Container */
+.container.contact-page {
+  width: 40vw;
+  min-width: 480px;
+  height: 100%;
+  
+  overflow-y: auto;
+  overflow-x: hidden;
+  
+  /* Scale padding with viewport height */
+  padding: clamp(2rem, 8vh, 6rem) clamp(1.5rem, 3vw, 3rem) clamp(2rem, 8vh, 3rem) clamp(1.5rem, 3vw, 3rem);
+  box-sizing: border-box;
+  position: relative;
+  
+  scrollbar-width: thin;
+  scrollbar-color: var(--grey) transparent;
+  
+  /* Scale content with viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Custom Scrollbar for Webkit */
+.container.contact-page::-webkit-scrollbar { width: 6px; }
+.container.contact-page::-webkit-scrollbar-track { background: transparent; }
+.container.contact-page::-webkit-scrollbar-thumb { background-color: var(--grey); border-radius: 20px; }
+
+/* Right Side: Map Section */
+.map-section {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  min-width: 0;
+}
+
+.map-wrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  animation: slideInRight 1s 0.5s forwards;
+}
+
+#map {
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1;
+}
+
+/* --- 3. The Footer (Info Map) --- */
+.info-map {
+  position: relative;
+  flex-shrink: 0;
+  z-index: 10;
+  
+  width: 100%;
+  background: var(--dark-grey);
+  color: var(--cream);
+  /* Scale footer padding with viewport height */
+  padding: clamp(0.75rem, 2vh, 1.5rem) clamp(1rem, 2vw, 2rem);
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+  /* Scale font size */
+  font-size: clamp(0.75rem, 1.5vh, 1rem);
+  line-height: 1.6;
+}
+
+.info-map span {
+  font-size: clamp(0.75rem, 1.5vh, 1rem);
+  color: var(--pastel-pink);
+  font-weight: 400;
+}
+
+/* --- 4. Back Button --- */
 .back-button {
   position: fixed;
   top: 2rem;
   left: 2rem;
-  z-index: 100;
+  z-index: 500;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -41,81 +135,44 @@ html, body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.back-button svg {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
+.back-button svg { width: 20px; height: 20px; flex-shrink: 0; }
 
-/* --- Main Container --- */
-.container.contact-page {
-  max-width: 35vw;
-  margin: 0;
-  padding: 8rem 3rem 3rem 3rem;
-  position: relative;
-  animation: fadeIn 0.8s ease-out;
-  min-height: 100vh;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* --- Text Zone --- */
-.text-zone {
-  max-width: 600px;
-  width: 100%;
-  margin: 0 auto;
+/* --- 5. Form & Animation Styles --- */
+.text-zone { 
+  width: 100%; 
+  margin: 0 auto; 
   animation: fadeInUp 0.8s ease-out;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
 
 .page-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  margin: 0 0 1rem 0;
+  /* Scale title with viewport height */
+  font-size: clamp(1.75rem, 5vh, 4rem);
+  margin: 0 0 clamp(0.5rem, 1.5vh, 1rem) 0;
   color: var(--dark-grey);
   font-weight: 400;
   letter-spacing: -1px;
 }
 
-.intro-text {
-  font-size: 1.1rem;
+.intro-text { 
+  font-size: clamp(0.9rem, 1.5vh, 1.1rem);
   line-height: 1.8;
   color: var(--grey);
-  margin-bottom: 2rem;
+  margin-bottom: clamp(1rem, 2.5vh, 2rem);
 }
 
-/* --- Contact Form --- */
-.contact-form {
-  width: 100%;
-  max-width: 600px;
-  margin: 2rem auto 0;
+.contact-form { 
+  width: 100%; 
+  margin: clamp(1rem, 2.5vh, 2rem) auto 0;
 }
 
-.contact-form ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
+.contact-form ul { padding: 0; margin: 0; list-style: none; }
 
-.contact-form li {
-  padding: 0;
-  margin: 0 0 1rem 0;
+.contact-form li { 
+  padding: 0; 
+  margin: 0 0 clamp(0.5rem, 1.25vh, 1rem) 0;
   list-style: none;
   display: block;
   clear: both;
@@ -130,24 +187,16 @@ html, body {
 .contact-form li:nth-child(4) { animation-delay: 0.5s; }
 .contact-form li:nth-child(5) { animation-delay: 0.6s; }
 
-.contact-form li.half {
-  width: 49%;
-  margin-left: 2%;
-  float: left;
-  clear: none;
-}
+.contact-form li.half { width: 49%; margin-left: 2%; float: left; clear: none; }
+.contact-form li.half:first-child { margin-left: 0; }
 
-.contact-form li.half:first-child {
-  margin-left: 0;
-}
-
-.contact-form input[type='text'],
-.contact-form input[type='email'] {
+.contact-form input[type='text'], .contact-form input[type='email'] {
   width: 100%;
   border: 2px solid var(--grey);
   background: var(--cream);
-  height: 50px;
-  font-size: 16px;
+  /* Scale input height */
+  height: clamp(40px, 6vh, 50px);
+  font-size: clamp(14px, 1.5vh, 16px);
   color: var(--dark-grey);
   padding: 0 20px;
   box-sizing: border-box;
@@ -156,46 +205,33 @@ html, body {
   font-family: var(--font-primary);
 }
 
-.contact-form input[type='text']:focus,
-.contact-form input[type='email']:focus {
-  outline: none;
-  border-color: var(--pastel-pink);
-  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.2);
-}
-
 .contact-form textarea {
   width: 100%;
   border: 2px solid var(--grey);
   background: var(--cream);
-  font-size: 16px;
+  font-size: clamp(14px, 1.5vh, 16px);
   color: var(--dark-grey);
   padding: 20px;
   box-sizing: border-box;
-  min-height: 150px;
+  /* Scale textarea height */
+  min-height: clamp(100px, 15vh, 150px);
   border-radius: 8px;
   resize: vertical;
   transition: all 0.3s ease;
   font-family: var(--font-primary);
 }
 
-.contact-form textarea:focus {
-  outline: none;
-  border-color: var(--pastel-pink);
-  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.2);
-}
-
-.contact-form ::placeholder {
-  color: var(--grey);
-  opacity: 0.6;
+.contact-form input:focus, .contact-form textarea:focus {
+  outline: none; border-color: var(--pastel-pink); box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.2);
 }
 
 .flat-button {
   color: var(--dark-grey);
-  font-size: 0.9rem;
+  font-size: clamp(0.75rem, 1.25vh, 0.9rem);
   font-weight: 600;
   letter-spacing: 2px;
   text-decoration: none;
-  padding: 12px 30px;
+  padding: clamp(10px, 1.5vh, 12px) clamp(20px, 3vw, 30px);
   border: 2px solid var(--grey);
   float: right;
   border-radius: 30px;
@@ -214,313 +250,44 @@ html, body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.flat-button.sending {
-  cursor: not-allowed;
-  background-color: var(--grey);
-  border-color: var(--grey);
-  color: white;
-  opacity: 0.7;
-}
+/* --- 6. Responsive Design --- */
 
-/* --- Info Map - ALWAYS VISIBLE AT BOTTOM --- */
-.info-map {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--dark-grey);
-  color: var(--cream);
-  padding: 1rem 2rem;
-  z-index: 3000;
-  border-radius: 12px 12px 0 0;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  pointer-events: all;
-}
-
-.info-map span {
-  font-size: 1rem;
-  color: var(--pastel-pink);
-  font-weight: 400;
-}
-
-/* --- Map --- */
-#map {
-  position: fixed !important;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 60vw !important;
-  height: 100vh !important;
-  z-index: 1;
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.map-wrap {
-  width: 60vw;
-  height: 100vh;
-  animation: slideInRight 1s 0.5s forwards;
-}
-
-/* --- Responsive Design --- */
-
-/* Tablet and smaller laptops */
-@media (max-width: 1200px) {
-  .container.contact-page {
-    max-width: 45vw;
-    margin: 0 auto;
-    padding: 8rem 2.5rem 3rem 2.5rem;
-  }
-  
-  #map {
-    width: 50vw !important;
-  }
-  
-  .map-wrap {
-    width: 50vw;
-  }
-}
-
-/* Hide map on medium screens */
+/* Tablet & Mobile */
 @media (max-width: 1100px) {
-  .container.contact-page {
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 7rem 2rem 6rem 2rem;
-  }
-
-  #map,
-  .map-wrap {
-    display: none !important;
-  }
-
-  .text-zone {
-    max-width: 100%;
-  }
-  
-  .contact-form {
-    max-width: 100%;
-  }
-}
-
-/* Tablet */
-@media (max-width: 900px) {
-  .container.contact-page {
-    max-width: 600px;
-    padding: 6rem 2rem 6rem 2rem;
-  }
-  
-  .page-title {
-    font-size: clamp(2rem, 6vw, 3rem);
-  }
-  
-  .info-map {
-    padding: 0.9rem 1.5rem;
-    font-size: 0.95rem;
-  }
-  
-  .info-map span {
-    font-size: 0.95rem;
-  }
-}
-
-/* Mobile - Lock scrolling and fit everything */
-@media (max-width: 768px) {
-  .container.contact-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    display: flex;
+  .content-row {
     flex-direction: column;
-    padding: 3.5rem 1rem 5rem 1rem;
-    overflow: hidden;
-    max-width: none;
-    box-sizing: border-box;
   }
 
-  .text-zone {
-    flex-shrink: 0;
-    margin-bottom: 0.75rem;
-    width: 100%;
-  }
-
-  .page-title {
-    padding-top: 2rem; 
-    font-size: 1.6rem;
-    margin: 0 0 0.5rem 0;
-    letter-spacing: -0.5px;
-  }
-
-  .intro-text {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    margin-bottom: 0.5rem;
-  }
-  
-  .contact-form {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin: 0;
-    max-width: 100%;
-    padding-right: 0.5rem;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .contact-form::-webkit-scrollbar {
-    width: 4px;
-  }
-  
-  .contact-form::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  .contact-form::-webkit-scrollbar-thumb {
-    background: var(--grey);
-    border-radius: 2px;
-  }
-
-  .contact-form li {
-    margin-bottom: 0.7rem;
-  }
-
-  .contact-form li.half {
-    width: 100%;
-    margin-left: 0;
-    float: none;
-  }
-  
-  .contact-form input[type='text'],
-  .contact-form input[type='email'] {
-    height: 42px;
-    font-size: 14px;
-    padding: 0 14px;
-  }
-  
-  .contact-form textarea {
-    min-height: 80px;
-    font-size: 14px;
-    padding: 14px;
-  }
-
-  .flat-button {
-    float: none;
-    width: 100%;
+  .page-wrapper {
     display: block;
-    padding: 11px 24px;
-    font-size: 0.75rem;
-    margin-top: 0.5rem;
-    letter-spacing: 1.5px;
+    height: auto;
+    overflow-y: auto;
+    min-height: 100vh;
   }
   
-  .info-map {
-    padding: 0.8rem 1rem;
-    font-size: 0.75rem;
-    line-height: 1.4;
-  }
-  
-  .info-map span {
-    font-size: 0.75rem;
-  }
-}
-
-/* Small mobile devices */
-@media (max-width: 480px) {
   .container.contact-page {
-    padding: 3rem 0.875rem 5rem 0.875rem;
+    width: 100%;
+    min-width: 0;
+    padding: 7rem 2rem 2rem 2rem;
+    height: auto;
+    overflow: visible;
+    justify-content: flex-start;
   }
 
-  .page-title {
-    font-size: 1.4rem;
-  }
-
-  .intro-text {
-    font-size: 0.8rem;
-    line-height: 1.4;
-  }
-  
-  .contact-form li {
-    margin-bottom: 0.6rem;
-  }
-  
-  .contact-form input[type='text'],
-  .contact-form input[type='email'] {
-    height: 40px;
-    padding: 0 12px;
-    font-size: 13px;
-  }
-  
-  .contact-form textarea {
-    min-height: 70px;
-    padding: 12px;
-    font-size: 13px;
-  }
-
-  .info-map {
-    padding: 0.7rem 0.875rem;
-    font-size: 0.7rem;
-  }
-  
-  .info-map span {
-    font-size: 0.7rem;
-  }
-  
-  .flat-button {
-    padding: 10px 20px;
-    font-size: 0.7rem;
-  }
-}
-
-/* Extra small devices */
-@media (max-width: 375px) {
-  .page-title {
-    font-size: 1.3rem;
-  }
-  
-  .intro-text {
-    font-size: 0.75rem;
-  }
-  
-  .contact-form input[type='text'],
-  .contact-form input[type='email'],
-  .contact-form textarea {
-    font-size: 12px;
+  .map-section {
+    display: none;
   }
   
   .info-map {
-    padding: 0.6rem 0.75rem;
-    font-size: 0.65rem;
-  }
-  
-  .info-map span {
-    font-size: 0.65rem;
+    position: relative;
+    width: 100%;
   }
 }
 
-/* Prevent any unwanted scrolling */
-* {
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Fix for iOS Safari */
-@supports (-webkit-touch-callout: none) {
-  .container.contact-page {
-    height: -webkit-fill-available;
-  }
+/* Small Mobile Adjustments */
+@media (max-width: 768px) {
+  .container.contact-page { padding: 6rem 1rem 1rem 1rem; }
+  .page-title { font-size: 1.8rem; }
+  .contact-form li.half { width: 100%; margin-left: 0; float: none; }
+  .flat-button { width: 100%; float: none; margin-top: 0.5rem; }
 }

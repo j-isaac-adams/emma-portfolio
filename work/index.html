@@ -189,8 +189,8 @@
               <a
                 v-if="projects[selectedProject].download"
                 :href="projects[selectedProject].download"
-                download
                 class="download-btn"
+                @click="handleDownload($event, projects[selectedProject])"
               >
                 <svg
                   width="20"
@@ -329,7 +329,7 @@
               title: "Computer-Aided Design for Apparel",
               category: "Related School Experience",
               icon: "fas fa-star",
-              images: ["../assets/Trashion Show/trashion_1.JPG"],
+              images: ["../assets/Computer Aided Design/apparel_photo.png"],
               description:
                 "Computer-Aided Design for Apparel, dives into the operation of industry design software for apparel and other sewn products. Adobe Creative Suite (Illustrator and Photoshop), Gerber Accumark, and 3D virtual design programs were used to create a complete collection, Timeless Grace.",
               year: "2025",
