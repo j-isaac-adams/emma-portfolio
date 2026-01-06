@@ -109,7 +109,7 @@
           United States
           <br />
           <br />
-          <span>emhuber112@gmail.com</span>
+          <span>emhuber4@ncsu.edu</span>
         </div>
       </div>
     </div>
@@ -132,12 +132,12 @@
             this.isSending = true;
 
             // Initialize EmailJS
-            emailjs.init("MWlWsi74FQUm14Z_r");
+            emailjs.init("EovXvAIv08Kxe8ZYB");
 
             try {
-              await emailjs.send("service_eddn63z", "template_k0c955j", {
-                from_name: this.formData.name,
-                from_email: this.formData.email,
+              await emailjs.send("service_m7wrs9m", "template_4v4nxz8", {
+                name: this.formData.name,
+                email: this.formData.email,
                 subject: this.formData.subject,
                 message: this.formData.message,
               });
